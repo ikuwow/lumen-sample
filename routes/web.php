@@ -12,5 +12,12 @@
 */
 
 $app->get('/', function () use ($app) {
-    return $app->version();
+
+    $output = [];
+    $output[] = $app->version();
+    $output[] = 'locale is ' . config('app.locale');
+    if ($app->environment() !== 'production') {
+        $output[] = 'This is not production mode.';
+    }
+    return '<pre>' . implode(PHP_EOL, $output) . '</pre>';
 });
